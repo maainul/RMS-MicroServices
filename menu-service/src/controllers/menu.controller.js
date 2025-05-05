@@ -3,6 +3,7 @@ import { MenuDTO } from '../dto/menu.dto.js';
 
 export const createMenuController = async (req, res) => {
     try {
+        console.log("createMenu Controller Called")
         const { name, description, ingredients, price, available, combo } = req.body;
         const menuDTO = new MenuDTO(name, description, ingredients, price, available, combo);
         const newMenu = await createMenuService(menuDTO);
@@ -15,6 +16,7 @@ export const createMenuController = async (req, res) => {
 
 export const listMenuController = async (req, res) => {
     try {
+        console.log("listMenu Controller Called")
         const menus = await listMenuService();
         res.status(201).json({ message: 'Menu get successfully', menus: menus });
     } catch (error) {
@@ -24,6 +26,7 @@ export const listMenuController = async (req, res) => {
 
 export const getMenuByIdController = async (req, res) => {
     try {
+        console.log("getMenuById Controller Called")
         const { id } = req.params
         const menu = await getMenuByIdService(id);
         res.status(201).json({ message: 'Menu get successfully', menu: menu });

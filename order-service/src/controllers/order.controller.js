@@ -3,6 +3,7 @@ import { createOrderService, findAllOrderService } from './../services/order.ser
 
 export const createOrderController = async (req, res) => {
     try {
+        console.log("createOrderController Controller Called")
         const { userId, menuItemId, offerId, finalPrice, originalPrice } = req.body;
         const orderDTO = new OrderDTO(userId, menuItemId, offerId, finalPrice, originalPrice);
         const newOrder = await createOrderService(orderDTO);
@@ -15,6 +16,7 @@ export const createOrderController = async (req, res) => {
 
 export const findAllOrderController = async (req, res) => {
     try {
+        console.log("findAllOrderController Controller Called")
         const orders = await findAllOrderService();
         res.status(201).json({ message: 'Order fetch successfully', order: orders });
     } catch (error) {
@@ -25,6 +27,7 @@ export const findAllOrderController = async (req, res) => {
 
 export const findOrderByIdController = async (req, res) => {
     try {
+        console.log("findOrderByIdController Controller Called")
         const { id } = req.params
         const order = await findOrderByIdController(id);
         res.status(201).json({ message: 'Order fetch successfully', order: order });

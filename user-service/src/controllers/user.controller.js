@@ -3,6 +3,7 @@ import { UserDTO } from '../dto/user.dto.js';
 
 export const registerController = async (req, res) => {
     try {
+        console.log("Register Controller Called...")
         const { name, email, password } = req.body;
         const userDTO = new UserDTO(name, email, password);
         const newUser = await registerUser(userDTO);
@@ -14,6 +15,7 @@ export const registerController = async (req, res) => {
 
 export const findUsersController = async (req, res) => {
     try {
+        console.log("findUsers Controller Called...")
         const users = await findUserService();
         res.status(201).json({ message: 'User fetch successfully', user: users });
     } catch (error) {
@@ -24,6 +26,7 @@ export const findUsersController = async (req, res) => {
 
 export const findUserByIdController = async (req, res) => {
     try {
+        console.log("findUserById Controller Called...")
         const { id } = req.param
         const user = await findUserByIdUserService(id);
         res.status(201).json({ message: 'User fetch successfully', user: user });

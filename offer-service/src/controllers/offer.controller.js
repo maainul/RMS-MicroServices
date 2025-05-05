@@ -5,6 +5,7 @@ import { createOfferService, findAllOfferService, findOfferByIdService } from '.
 
 export const createOfferController = async (req, res) => {
     try {
+        console.log("createOffer Controller Called...")
         const { name, description, price, discount, startDate, endDate, available, menuId } = req.body;
         const offerDTO = new OfferDTO(name, description, price, discount, startDate, endDate, available, menuId);
         const newOffer = await createOfferService(offerDTO);
@@ -14,9 +15,9 @@ export const createOfferController = async (req, res) => {
     }
 };
 
-
 export const findAllOfferController = async (req, res) => {
     try {
+        console.log("findAllOffer Controller Called...")
         const offers = await findAllOfferService();
         res.status(201).json({ message: 'Offer fetch successfully', offers: offers });
     } catch (error) {
@@ -26,6 +27,7 @@ export const findAllOfferController = async (req, res) => {
 
 export const findOfferByIdController = async (req, res) => {
     try {
+        console.log("findOfferById Controller Called...")
         const { id } = req.params
         const offer = await findOfferByIdService(id);
         res.status(201).json({ message: 'Offer fetch successfully', offers: offer });
