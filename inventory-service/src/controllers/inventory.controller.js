@@ -49,11 +49,12 @@ export const restock = async (req, res) => {
 export const deduct = async (req, res) => {
   try {
     console.log("deduct Controller Called")
-    const { menuItemId, quantity } = req.body;
-    const result = await deductItemService(menuItemId, quantity);
+    const { menuId, quantity } = req.body;
+    const result = await deductItemService(menuId, quantity);
     if (!result) {
       return res.status(400).json({ message: 'Not enough stock' });
     }
+    console.log("Inventory deduct successfully")
     res.status(201).json({ message: 'Inventory deduct successfully', inventory: result });
 
   } catch (error) {

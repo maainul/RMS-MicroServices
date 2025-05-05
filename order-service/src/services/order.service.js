@@ -1,10 +1,9 @@
 import { createOrderRepository, findAllOrderRepository, findOrderByIdRepository } from "../repositories/order.repository.js";
 import axios from 'axios'
 
-const { USER_SERVICE, MENU_SERVICE, OFFER_SERVICE, ORDER_SERVICE } = process.env;
+const { USER_SERVICE, MENU_SERVICE, OFFER_SERVICE, INVENTORY_SERVICE } = process.env;
 
 export const createOrderService = async (order) => {
-
     // validate User
     const userId = order.userId
     const userRes = await axios.get(`${USER_SERVICE}/${userId}`)
@@ -21,19 +20,17 @@ export const createOrderService = async (order) => {
     let finalPrice = order.price;
     let originalPrice = order.price;
 
-
     // Validate offer if provided
-    if (offerId) {
+    if (offerId !== undefined) {
         const offerRes = await axios.get(`${OFFER_SERVICE}/${offerId}`);
         const offer = offerRes.data;
         if (offer && offer.menuItemId === menuId) {
             finalPrice = originalPrice - (originalPrice * offer.discountPercent / 100);
         }
     }
-
     // check inventory and deduct 
-    const inventoryRes = await axios.get(`${ORDER_SERVICE}/deduct}`, { menuId, quantity })
-    if (inventoryRes.data.success !== true) {
+    const inventoryRes = await axios.post(`${INVENTORY_SERVICE}/deduct`, { menuId, quantity })
+    if (!inventoryRes.data.inventory || !inventoryRes.data.inventory._id) {
         throw new Error("Inventory deduction failed");
     }
 
