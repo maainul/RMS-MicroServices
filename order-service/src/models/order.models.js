@@ -5,6 +5,7 @@ const orderSchema = new mongoose.Schema({
     menuItemId: String,
     offerId: String,
     finalPrice: Number,
+    quantity: Number,
     originalPrice: Number,
     createdAt: {
         type: Date,

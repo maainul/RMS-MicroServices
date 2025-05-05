@@ -1,17 +1,19 @@
 import { createOrderRepository, findAllOrderRepository, findOrderByIdRepository } from "../repositories/order.repository.js";
 import axios from 'axios'
 
-const { USER_SERVICE, MENU_SERVICE, OFFER_SERVICE } = process.env;
+const { USER_SERVICE, MENU_SERVICE, OFFER_SERVICE, ORDER_SERVICE } = process.env;
 
 export const createOrderService = async (order) => {
 
     // validate User
     const userId = order.userId
     const userRes = await axios.get(`${USER_SERVICE}/${userId}`)
-    if (!userRes) throw new Error("Order Not Found")
+    if (!userRes) throw new Error("User Not Found")
+
+    const menuId = order.menuItemId
+    const quantity = order.quantity
 
     // validate menu item
-    const menuId = order.menuItemId
     const menuRes = await axios.get(`${MENU_SERVICE}/${menuId}`)
     if (!menuRes) throw new Error("Menu Not Found")
 
@@ -27,6 +29,12 @@ export const createOrderService = async (order) => {
         if (offer && offer.menuItemId === menuId) {
             finalPrice = originalPrice - (originalPrice * offer.discountPercent / 100);
         }
+    }
+
+    // check inventory and deduct 
+    const inventoryRes = await axios.get(`${ORDER_SERVICE}/deduct}`, { menuId, quantity })
+    if (inventoryRes.data.success !== true) {
+        throw new Error("Inventory deduction failed");
     }
 
     const newOrder = await createOrderRepository(order);

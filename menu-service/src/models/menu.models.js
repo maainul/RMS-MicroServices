@@ -19,8 +19,10 @@ const menuSchema = new mongoose.Schema({
     },
     combo: {
         type: Boolean,
+    },
+    quantity: {
+        type: Number,
     }
-
 });
 
 const Menu = mongoose.model('Menu', menuSchema);

@@ -1,11 +1,13 @@
+import axios from 'axios'
 import { OrderDTO } from '../dto/order.dto.js';
 import { createOrderService, findAllOrderService } from './../services/order.service.js';
 
-export const createOrderController = async (req, res) => {
+
+export const placeOrderController = async (req, res) => {
     try {
         console.log("createOrderController Controller Called")
-        const { userId, menuItemId, offerId, finalPrice, originalPrice } = req.body;
-        const orderDTO = new OrderDTO(userId, menuItemId, offerId, finalPrice, originalPrice);
+        const { userId, menuItemId, offerId, finalPrice, originalPrice,quantity } = req.body;
+        const orderDTO = new OrderDTO(userId, menuItemId, offerId, finalPrice, originalPrice,quantity);
         const newOrder = await createOrderService(orderDTO);
         res.status(201).json({ message: 'Order created successfully', order: newOrder });
     } catch (error) {

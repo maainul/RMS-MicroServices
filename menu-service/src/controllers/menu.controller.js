@@ -4,8 +4,8 @@ import { MenuDTO } from '../dto/menu.dto.js';
 export const createMenuController = async (req, res) => {
     try {
         console.log("createMenu Controller Called")
-        const { name, description, ingredients, price, available, combo } = req.body;
-        const menuDTO = new MenuDTO(name, description, ingredients, price, available, combo);
+        const { name, description, ingredients, price, available, combo,quantity } = req.body;
+        const menuDTO = new MenuDTO(name, description, ingredients, price, available, combo,quantity);
         const newMenu = await createMenuService(menuDTO);
         res.status(201).json({ message: 'Menu created successfully', menu: newMenu });
     } catch (error) {

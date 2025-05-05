@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
-import userRoutes from './routes/user.route.js';
+import inventoryRoutes from './routes/inventory.route.js';
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ connectDB();
 app.use(express.json());
 
 // Routes
-app.use('/api/users', userRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5004;
