@@ -1,5 +1,3 @@
-Yes, **Stock and Inventory** should be implemented as a **separate microservice** — let’s call it the **Inventory Service**.
-
 ---
 
 ## ✅ Why a Separate Inventory Service?
