@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { createUser, findUserByEmail } from '../repositories/user.repository.js';
 
 export const registerUser = async (user) => {

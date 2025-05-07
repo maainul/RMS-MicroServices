@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import userRoutes from './routes/user.route.js';
+import { metricsMiddleware, metricsEndpoint } from './metrics.js';
 
 dotenv.config();
 
@@ -13,9 +14,12 @@ connectDB();
 
 // Middleware
 app.use(express.json());
-
+app.use(metricsMiddleware);
 // Routes
-app.use('/api/users', userRoutes);
+app.use('/api/anatics', userRoutes);
+
+// Metrics endpoint
+app.get('/metrics', metricsEndpoint);
 
 // Start server
 const PORT = process.env.PORT || 5005;

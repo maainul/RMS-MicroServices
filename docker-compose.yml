@@ -1,0 +1,108 @@
+services:
+
+  user-service:
+    build: ./user-service
+    image: mainul/user-service:latest
+    container_name: rms-micro-user-service
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/test-api
+    depends_on:
+      - mongo
+
+  menu-service:
+    build: ./menu-service
+    image: mainul/menu-service:latest
+    container_name: rms-micro-menu-service
+    ports:
+      - "5001:5001"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/test-api
+    depends_on:
+      - mongo
+
+  offer-service:
+    build: ./offer-service
+    image: mainul/offer-service:latest
+    container_name: rms-micro-offer-service
+    ports:
+      - "5002:5002"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/test-api
+    depends_on:
+      - mongo
+
+  order-service:
+    build: ./order-service
+    image: mainul/order-service:latest
+    container_name: rms-micro-order-service
+    ports:
+      - "5003:5003"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/test-api
+    depends_on:
+      - mongo
+
+  inventory-service:
+    build: ./inventory-service
+    image: mainul/inventory-service:latest
+    container_name: rms-micro-inventory-service
+    ports:
+      - "5004:5004"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/test-api
+    depends_on:
+      - mongo
+
+  analytics-service:
+    build: ./analytics-service
+    image: mainul/analytics-service:latest
+    container_name: rms-micro-analytics-service
+    ports:
+      - "5005:5005"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/test-api
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6.0
+    container_name: rms-micro-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - rms-micro-mongo-data:/data/db
+
+  prometheus:
+    image: prom/prometheus
+    container_name: rms-micro-prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - rms-micro-prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - user-service
+      - menu-service
+      - offer-service
+      - order-service
+      - inventory-service
+      - analytics-service
+
+  grafana:
+    image: grafana/grafana
+    container_name: rms-micro-grafana
+    volumes:
+    - rms-micro-grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    depends_on:
+      - prometheus
+
+volumes:
+  rms-micro-mongo-data:
+  rms-micro-grafana-data:
+  rms-micro-prometheus-data:

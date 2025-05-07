@@ -3,9 +3,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017/test-api';
+
+
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
+        await mongoose.connect(mongoURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

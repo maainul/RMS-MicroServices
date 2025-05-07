@@ -1,0 +1,27 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'user-service'
+    static_configs:
+      - targets: ['user-service:5000']
+
+  - job_name: 'menu-service'
+    static_configs:
+      - targets: ['menu-service:5001']
+
+  - job_name: 'offer-service'
+    static_configs:
+      - targets: ['offer-service:5002']
+
+  - job_name: 'order-service'
+    static_configs:
+      - targets: ['order-service:5003']
+
+  - job_name: 'inventory-service'
+    static_configs:
+      - targets: ['inventory-service:5004']
+
+  - job_name: 'analytics-service'
+    static_configs:
+      - targets: ['analytics-service:5005']
