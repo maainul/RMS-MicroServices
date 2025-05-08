@@ -5,6 +5,7 @@ import userRoutes from './routes/user.route.js';
 import { metricsMiddleware, metricsEndpoint } from './metrics.js';
 import { loggingMiddleware } from './middlewares/requestLogger.js';
 import { logger } from './utils/logger.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
 
@@ -26,6 +27,9 @@ app.use('/api/users', userRoutes);
 
 // Metrics endpoint
 app.get('/metrics', metricsEndpoint);
+
+app.use(errorHandler);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
