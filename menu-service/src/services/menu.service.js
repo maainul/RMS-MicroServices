@@ -19,8 +19,10 @@ export const createMenuService = async (menu) => {
             menuItemId: newMenu._id,
             quantity: menu.quantity || 0
         })
+
     } catch (error) {
-        throw new Error('Inventory setup failed: ' + error.message);
+        console.log("===>",error)
+        throw new Error('Inventory setup failed: ' + error);
     }
     return newMenu;
 };

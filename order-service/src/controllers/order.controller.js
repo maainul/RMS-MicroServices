@@ -6,6 +6,9 @@ export const placeOrderController = async (req, res) => {
     try {
         console.log("createOrderController Controller Called")
         const { userId, menuItemId, offerId, finalPrice, originalPrice,quantity } = req.body;
+        console.log("####################")
+        console.log(req.body)
+        console.log("####################")
         const orderDTO = new OrderDTO(userId, menuItemId, offerId, finalPrice, originalPrice,quantity);
         const newOrder = await createOrderService(orderDTO);
         res.status(201).json({ message: 'Order created successfully', order: newOrder });

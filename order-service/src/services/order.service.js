@@ -4,39 +4,67 @@ import axios from 'axios'
 const { USER_SERVICE, MENU_SERVICE, OFFER_SERVICE, INVENTORY_SERVICE } = process.env;
 
 export const createOrderService = async (order) => {
-    // validate User
-    const userId = order.userId
-    const userRes = await axios.get(`${USER_SERVICE}/${userId}`)
-    if (!userRes) throw new Error("User Not Found")
-
-    const menuId = order.menuItemId
-    const quantity = order.quantity
-
-    // validate menu item
-    const menuRes = await axios.get(`${MENU_SERVICE}/${menuId}`)
-    if (!menuRes) throw new Error("Menu Not Found")
-
-    let offerId = order.offerId
+    const { userId, menuItemId: menuId, quantity, offerId } = order;
     let finalPrice = order.price;
-    let originalPrice = order.price;
+    const originalPrice = order.price;
 
-    // Validate offer if provided
-    if (offerId !== undefined) {
-        const offerRes = await axios.get(`${OFFER_SERVICE}/${offerId}`);
-        const offer = offerRes.data;
-        if (offer && offer.menuItemId === menuId) {
-            finalPrice = originalPrice - (originalPrice * offer.discountPercent / 100);
+    try {
+        console.log("createOrderService: Validating user...");
+        const userRes = await axios.get(`${USER_SERVICE}/${userId}`);
+        console.log("#############",userRes)
+        if (!userRes.data) throw new Error("User not found");
+    } catch (err) {
+        console.error("User validation failed:", err.message);
+        throw new Error("User Not Found");
+    }
+
+    try {
+        console.log("createOrderService: Validating menu item...");
+        const menuRes = await axios.get(`${MENU_SERVICE}/${menuId}`);
+        if (!menuRes.data) throw new Error("Menu not found");
+    } catch (err) {
+        console.error("Menu validation failed:", err.message);
+        throw new Error("Menu Not Found");
+    }
+
+    if (offerId) {
+        try {
+            console.log("createOrderService: Checking offer...");
+            const offerRes = await axios.get(`${OFFER_SERVICE}/${offerId}`);
+            const offer = offerRes.data;
+            if (offer && offer.menuItemId === menuId) {
+                finalPrice = originalPrice - (originalPrice * offer.discountPercent / 100);
+            }
+        } catch (err) {
+            console.warn("Offer check skipped:", err.message);
         }
     }
-    // check inventory and deduct 
-    const inventoryRes = await axios.post(`${INVENTORY_SERVICE}/deduct`, { menuId, quantity })
-    if (!inventoryRes.data.inventory || !inventoryRes.data.inventory._id) {
+
+    try {
+        console.log("createOrderService: Deducting inventory...");
+        const inventoryRes = await axios.post(`${INVENTORY_SERVICE}/deduct`, {
+            menuId,
+            quantity
+        });
+
+        const inventory = inventoryRes.data.inventory;
+        if (!inventory || !inventory._id) {
+            throw new Error("Invalid inventory response");
+        }
+    } catch (err) {
+        console.error("Inventory deduction failed:", err.message);
         throw new Error("Inventory deduction failed");
     }
 
-    const newOrder = await createOrderRepository(order);
+    console.log("createOrderService: Creating order...");
+    const newOrder = await createOrderRepository({
+        ...order,
+        finalPrice
+    });
+
     return newOrder;
 };
+
 
 
 export const findAllOrderService = async () => {

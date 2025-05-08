@@ -1,6 +1,145 @@
+
+# API Structure:
+
+## Folder Structure
+
+```css
+/order
+  ├── order.controller.js
+  ├── order.service.js
+  ├── order.repository.js
+  └── order.model.js
+```
+## 🧱 1. Repository Layer (No try-catch)
+```js
+// order.repository.js
+import Order from './order.model.js';
+
+export const createOrder = async (orderData) => {
+  return await Order.create(orderData);
+};
+
+```
+## 🔧 2. Service Layer (Use try-catch to validate & throw)
+```js
+// order.service.js
+import axios from 'axios';
+import { createOrder } from './order.repository.js';
+
+const USER_SERVICE = process.env.USER_SERVICE;        // http://user-service:5000/api/users
+const INVENTORY_SERVICE = process.env.INVENTORY_SERVICE; // http://inventory-service:5004/api/inventory
+
+export const placeOrderService = async (order) => {
+  const { userId, menuItemId, quantity } = order;
+
+  // ✅ 1. Validate user
+  let user;
+  try {
+    const response = await axios.get(`${USER_SERVICE}/${userId}`);
+    user = response.data.user;
+  } catch (err) {
+    throw new Error('User validation failed or user not found');
+  }
+
+  // ✅ 2. Check inventory and deduct
+  try {
+    const inventoryRes = await axios.post(`${INVENTORY_SERVICE}/deduct`, {
+      menuId: menuItemId,
+      quantity,
+    });
+
+    if (!inventoryRes.data.success) {
+      throw new Error('Inventory deduction failed');
+    }
+  } catch (err) {
+    throw new Error('Inventory check/deduction failed');
+  }
+
+  // ✅ 3. Create Order
+  const newOrder = await createOrder(order);
+  return newOrder;
+};
+
+```
+## 🎯 3. Controller Layer (Handles all errors centrally)
+
+```js
+// order.controller.js
+import { placeOrderService } from './order.service.js';
+
+export const placeOrderController = async (req, res) => {
+  try {
+    const newOrder = await placeOrderService(req.body);
+    return res.status(201).json({
+      message: 'Order placed successfully',
+      order: newOrder,
+    });
+  } catch (error) {
+    console.error('Order Placement Failed:', error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+```
+## 📦 .env File
+```.env
+PORT=5003
+USER_SERVICE=http://user-service:5000/api/users
+INVENTORY_SERVICE=http://inventory-service:5004/api/inventory
+```
+## 🚏 Express Route Setup
+```js
+// routes/order.route.js
+import express from 'express';
+import { placeOrderController } from '../order/order.controller.js';
+
+const router = express.Router();
+
+router.post('/place', placeOrderController);
+
+export default router;
+
+```
+## 🏁 Main App Initialization
+```js
+// app.js or index.js
+import express from 'express';
+import dotenv from 'dotenv';
+import orderRoutes from './routes/order.route.js';
+
+dotenv.config();
+
+const app = express();
+app.use(express.json());
+
+app.use('/api/orders', orderRoutes);
+
+const PORT = process.env.PORT || 5003;
+app.listen(PORT, () => {
+  console.log(`Order service running on port ${PORT}`);
+});
+
+```
+## ✅ Testing the API
+```bash
+POST http://localhost:5003/api/orders/place
+Content-Type: application/json
+
+{
+  "userId": "663ad17a12345e7d98765432",
+  "menuItemId": "663ad2b512345e7d98765001",
+  "quantity": 2,
+  "price": 350
+}
+
+```
 ---
 ## 🔑 **Core Principles of Microservices Architecture**
+```bash
+docker-compose up --build
 
+docker-compose up -d --build user-service
+```
 ### 1. **Single Responsibility (Business Capability per Service)**
 
 Each microservice is designed around a **specific business function** (e.g., user, order, menu, payment, stock).
