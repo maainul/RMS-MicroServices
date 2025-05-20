@@ -1,0 +1,52 @@
+2025-05-20T08:58:10.491Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:04:47.349Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:04:53.913Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:19:26.027Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:19:29.577Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:19:33.605Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:31:34.430Z [[32minfo[39m]: Finding user with ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:34.431Z [[32minfo[39m]: Searching for user by ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:34.432Z [[32minfo[39m]: Executing database query to find user by ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:34.449Z [[31merror[39m]: No user found with ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:34.453Z [[31merror[39m]: GET /api/users/681b5f4ffd774499cd6e2cef - Status: 404 - Duration: 23ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:31:36.373Z [[32minfo[39m]: Finding user with ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:36.373Z [[32minfo[39m]: Searching for user by ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:36.373Z [[32minfo[39m]: Executing database query to find user by ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:36.375Z [[31merror[39m]: No user found with ID: 681b5f4ffd774499cd6e2cef
+2025-05-20T09:31:36.376Z [[31merror[39m]: GET /api/users/681b5f4ffd774499cd6e2cef - Status: 404 - Duration: 3ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:31:42.836Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:31:42.847Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 178ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:33:26.115Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:36:23.041Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:38:32.121Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:38:38.866Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:38:49.924Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:38:51.444Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:38:52.309Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:40:53.055Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:40:53.917Z [[32minfo[39m]: Server running on port 5000
+2025-05-20T09:40:58.373Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:40:58.388Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 24ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:40:59.127Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:40:59.130Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 3ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:40:59.766Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:40:59.771Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 5ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:00.328Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:41:00.331Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 3ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:00.930Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:41:00.934Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 4ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:01.430Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:41:01.432Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 2ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:01.918Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:41:01.921Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 4ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:02.390Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:41:02.392Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 3ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:02.840Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:41:02.842Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 3ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:03.276Z [[32minfo[39m]: findUsers Controller Called...
+2025-05-20T09:41:03.278Z [[32minfo[39m]: GET /api/users - Status: 200 - Duration: 3ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:03.711Z [[31merror[39m]: GET /api/users - Status: 429 - Duration: 1ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:04.164Z [[31merror[39m]: GET /api/users - Status: 429 - Duration: 1ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:09.619Z [[31merror[39m]: GET /api/users - Status: 429 - Duration: 0ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:10.375Z [[31merror[39m]: GET /api/users - Status: 429 - Duration: 0ms - User-Agent: PostmanRuntime/7.44.0
+2025-05-20T09:41:20.326Z [[32minfo[39m]: Server running on port 5000
