@@ -1,29 +1,33 @@
-import { findByNameRepository, createMenuRepository, findAllMenuRepository, findMenuByidRepository } from '../repositories/menu.repository.js';
-import axios from 'axios'
+import {
+    findByNameRepository,
+    createMenuRepository,
+    findAllMenuRepository,
+    findMenuByidRepository
+} from '../repositories/menu.repository.js';
+
+import httpClient from '../utils/httpClient.js';
+
 
 const { INVENTORY_SERVICE_BASE_URL } = process.env;
 
-
 export const createMenuService = async (menu) => {
-    // Check if user exists
     const existingMenu = await findByNameRepository(menu.name);
     if (existingMenu) {
         throw new Error('Menu already exists');
     }
 
-    // Create user
     const newMenu = await createMenuRepository(menu);
-    // Call Inventory Service to initialize stock
+
     try {
-        await axios.post(`${INVENTORY_SERVICE_BASE_URL}/create`, {
+        await httpClient.post(`${INVENTORY_SERVICE_BASE_URL}/create`, {
             menuItemId: newMenu._id,
             quantity: menu.quantity || 0
-        })
-
+        });
     } catch (error) {
-        console.log("===>",error)
-        throw new Error('Inventory setup failed: ' + error);
+        console.error('🔥 Inventory service error:', error.message);
+        throw new Error('Inventory setup failed: ' + error.message);
     }
+
     return newMenu;
 };
 

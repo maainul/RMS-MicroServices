@@ -6,20 +6,20 @@ Perfect! Here's a **Production-Ready Microservices Checklist** tailored for your
 
 | Task                                                               | Status |
 | ------------------------------------------------------------------ | ------ |
-| \[ ] Split into controller → service → repository layers           | ✍️     |
-| \[ ] Use consistent error structure (`Error` object with messages) | ✍️     |
+| \[ ] Split into controller → service → repository layers           | ✅     |
+| \[ ] Use consistent error structure (`Error` object with messages) | ✅    |
 | \[ ] Use environment variables with `dotenv`                       | ✅      |
-| \[ ] Central config management (e.g., config.js)                   | ⬜      |
+| \[ ] Central config management (e.g., config.js)                   | ✅      |
 
 ---
 
 ### 🛡️ **Security & Middleware**
 
-| Task                                            | Status |
-| ----------------------------------------------- | ------ |
+| Task                                            | Status  |
+| ----------------------------------------------- | --------|
 | \[ ] CORS middleware configured                 | ⬜      |
 | \[ ] Helmet middleware (security headers)       | ⬜      |
-| \[ ] Rate limiting (e.g., `express-rate-limit`) | ⬜      |
+| \[ ] Rate limiting (e.g., `express-rate-limit`) | ✅      |
 | \[ ] Input validation (e.g., `Joi`, `zod`)      | ⬜      |
 | \[ ] JWT auth for protected routes              | ⬜      |
 
@@ -29,10 +29,10 @@ Perfect! Here's a **Production-Ready Microservices Checklist** tailored for your
 
 | Task                                                      | Status |
 | --------------------------------------------------------- | ------ |
-| \[ ] Use service URLs via env (`USER_SERVICE=http://...`) | ✅      |
-| \[ ] Retry logic on axios (`axios-retry`)                 | ⬜      |
-| \[ ] Timeout configuration for axios calls                | ⬜      |
-| \[ ] Circuit breaker (`opossum`)                          | ⬜      |
+| \[ ] Use service URLs via env (`USER_SERVICE=http://...`) | ✅     |
+| \[ ] Retry logic on axios (`axios-retry`)                 | ✅     |
+| \[ ] Timeout configuration for axios calls                | ✅     |
+| \[ ] Circuit breaker (`opossum`)                          | ⬜     |
 
 ---
 
