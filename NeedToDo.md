@@ -7,9 +7,9 @@ Perfect! Here's a **Production-Ready Microservices Checklist** tailored for your
 | Task                                                               | Status |
 | ------------------------------------------------------------------ | ------ |
 | \[ ] Split into controller → service → repository layers           | ✅     |
-| \[ ] Use consistent error structure (`Error` object with messages) | ✅    |
-| \[ ] Use environment variables with `dotenv`                       | ✅      |
-| \[ ] Central config management (e.g., config.js)                   | ✅      |
+| \[ ] Use consistent error structure (`Error` object with messages) | ✅     |
+| \[ ] Use environment variables with `dotenv`                       | ✅     |
+| \[ ] Central config management (e.g., config.js)                   | ✅     |
 
 ---
 
